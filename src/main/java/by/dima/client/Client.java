@@ -1,26 +1,19 @@
 package by.dima.client;
 
-import com.example.grpc.GreetingServiceGrpc;
-import com.example.grpc.GreetingServiceOuterClass;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import by.dima.client.business.GreetingFacade;
+import by.dima.client.x.config.SpringConfig;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
+@SpringBootApplication
 public class Client {
     public static void main(String[] args) {
-
-        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8080")
-                .usePlaintext()
-                .build();
-        GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
-
-        GreetingServiceOuterClass.HelloRequest helloRequest = GreetingServiceOuterClass.HelloRequest.newBuilder()
-                .setName("Dimka")
-                .build();
-
-        GreetingServiceOuterClass.HelloResponse helloResponse = stub.greeting(helloRequest);
-        System.out.println(helloResponse);
-
-        channel.shutdownNow();
+        SpringApplication.run(Client.class);
+//        ApplicationContext applicationContext = new Context(SpringConfig.class);
+//        GreetingFacade facade = applicationContext.getBean("greetingFacade", GreetingFacade.class);
+//        System.out.println(facade.getGreet("Dima"));
     }
 }
