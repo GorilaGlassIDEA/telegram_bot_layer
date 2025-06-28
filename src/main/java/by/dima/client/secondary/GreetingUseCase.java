@@ -7,21 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GreetingServiceProviderGrpc implements GreetingProvider {
+public class GreetingUseCase implements GreetingProvider<GreetingServiceOuterClass.HelloRequest> {
 
     private final GreetingServiceGrpc.GreetingServiceBlockingStub stub;
 
     @Autowired
-    public GreetingServiceProviderGrpc(GreetingServiceGrpc.GreetingServiceBlockingStub stub) {
+    public GreetingUseCase(GreetingServiceGrpc.GreetingServiceBlockingStub stub) {
         this.stub = stub;
 
     }
 
     @Override
-    public String greeting(String name) {
-        GreetingServiceOuterClass.HelloRequest helloRequest = GreetingServiceOuterClass.HelloRequest.newBuilder()
-                .setName(name)
-                .build();
+    public String greeting(GreetingServiceOuterClass.HelloRequest helloRequest) {
         return stub.greeting(helloRequest).getGreeting();
     }
 }

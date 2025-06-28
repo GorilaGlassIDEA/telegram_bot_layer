@@ -2,6 +2,7 @@ package by.dima.client.x.config;
 
 
 import com.example.grpc.GreetingServiceGrpc;
+import com.example.grpc.TelegramBotServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,14 @@ public class SpringConfig {
 
     @Bean
     @Autowired
-    GreetingServiceGrpc.GreetingServiceBlockingStub getStub(ManagedChannel channel) {
+    GreetingServiceGrpc.GreetingServiceBlockingStub getStubGreetingService(ManagedChannel channel) {
         return GreetingServiceGrpc.newBlockingStub(channel);
+    }
+
+    @Bean
+    @Autowired
+    TelegramBotServiceGrpc.TelegramBotServiceBlockingStub getStubTelegramBotExchangeMessageService(ManagedChannel channel) {
+        return TelegramBotServiceGrpc.newBlockingStub(channel);
     }
 
 
@@ -29,5 +36,6 @@ public class SpringConfig {
                 .build();
         //TODO: сделать порт в файле конфигурации
     }
+
 
 }

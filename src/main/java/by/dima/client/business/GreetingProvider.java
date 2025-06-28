@@ -1,5 +1,7 @@
 package by.dima.client.business;
 
-public interface GreetingProvider {
-    String greeting(String name);
+import com.example.grpc.GreetingServiceOuterClass;
+
+public interface GreetingProvider<T> {
+    String greeting(T name);
 }
