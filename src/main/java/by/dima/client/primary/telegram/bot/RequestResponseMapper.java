@@ -15,7 +15,7 @@ public class RequestResponseMapper {
     static TelegramBotExchangeMessage.UserRequest getUserRequest(Update update) {
         return TelegramBotExchangeMessage.UserRequest.newBuilder()
                 .setUsername(update.getMessage().getChat().getUserName())
-                .setSurname(update.getMessage().getChat().getLastName())
+                .setSurname(update.getMessage().getChat().getLastName()!=null?update.getMessage().getChat().getLastName():"")
                 .setMessage(update.getMessage().getText())
                 .setTelegramId(update.getMessage().getChatId())
                 .build();
